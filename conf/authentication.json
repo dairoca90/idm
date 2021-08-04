@@ -1,0 +1,116 @@
+{
+    "serverAuthContext" : {
+        "sessionModule" : {
+            "name" : "JWT_SESSION",
+            "properties" : {
+                "keyAlias" : "&{openidm.https.keystore.cert.alias}",
+                "privateKeyPassword" : "&{openidm.keystore.password}",
+                "keystoreType" : "&{openidm.keystore.type}",
+                "keystoreFile" : "&{openidm.keystore.location}",
+                "keystorePassword" : "&{openidm.keystore.password}",
+                "maxTokenLifeMinutes" : "120",
+                "tokenIdleTimeMinutes" : "30",
+                "sessionOnly" : true,
+                "isHttpOnly" : true
+            }
+        },
+        "authModules" : [
+            {
+                "name" : "STATIC_USER",
+                "properties" : {
+                    "queryOnResource" : "repo/internal/user",
+                    "username" : "anonymous",
+                    "password" : {
+                        "$crypto" : {
+                            "type" : "x-simple-encryption",
+                            "value" : {
+                                "cipher" : "AES/CBC/PKCS5Padding",
+                                "salt" : "NY5YzqsGPY0CJ3HqcrogRA==",
+                                "data" : "zqV+XbZVskqiQc90S6MaPw==",
+                                "iv" : "uAvIka25IUyftS0/CF2lkQ==",
+                                "key" : "openidm-sym-default",
+                                "mac" : "3WtIuutXjVs0gmY1lbmq3Q=="
+                            }
+                        }
+                    },
+                    "defaultUserRoles" : [
+                        "openidm-reg"
+                    ]
+                },
+                "enabled" : true
+            },
+            {
+                "name" : "MANAGED_USER",
+                "properties" : {
+                    "augmentSecurityContext" : {
+                        "type" : "text/javascript",
+                        "source" : "require('auth/customAuthz').setProtectedAttributes(security)"
+                    },
+                    "queryId" : "credential-query",
+                    "queryOnResource" : "managed/user",
+                    "propertyMapping" : {
+                        "authenticationId" : "username",
+                        "userCredential" : "password",
+                        "userRoles" : "authzRoles"
+                    },
+                    "defaultUserRoles" : [ ]
+                },
+                "enabled" : true
+            },
+            {
+                "name" : "INTERNAL_USER",
+                "properties" : {
+                    "queryId" : "credential-internaluser-query",
+                    "queryOnResource" : "repo/internal/user",
+                    "propertyMapping" : {
+                        "authenticationId" : "username",
+                        "userCredential" : "password",
+                        "userRoles" : "roles"
+                    },
+                    "defaultUserRoles" : [ ]
+                },
+                "enabled" : true
+            },
+            {
+                "name" : "CLIENT_CERT",
+                "properties" : {
+                    "queryOnResource" : "managed/user",
+                    "defaultUserRoles" : [
+                        "openidm-cert"
+                    ],
+                    "allowedAuthenticationIdPatterns" : [ ]
+                },
+                "enabled" : true
+            },
+            {
+                "name" : "SOCIAL_PROVIDERS",
+                "properties" : {
+                    "defaultUserRoles" : [
+                        "openidm-authorized"
+                    ],
+                    "augmentSecurityContext" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "file" : "auth/populateAsManagedUserFromRelationship.js"
+                    },
+                    "propertyMapping" : {
+                        "userRoles" : "authzRoles"
+                    }
+                },
+                "enabled" : true
+            },
+            {
+                "name" : "STATIC_USER",
+                "properties" : {
+                    "queryOnResource" : "repo/internal/user",
+                    "username" : "&{openidm.prometheus.username}",
+                    "password" : "&{openidm.prometheus.password}",
+                    "defaultUserRoles" : [
+                        "&{openidm.prometheus.role}"
+                    ]
+                },
+                "enabled" : true
+            }
+        ]
+    }
+}
