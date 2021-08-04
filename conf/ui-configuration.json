@@ -23,6 +23,7 @@
                 "iconPath" : "images/notifications/error.png"
             }
         },
-        "defaultNotificationType" : "info"
+        "defaultNotificationType" : "info",
+        "logoutUrl" : ""
     }
 }
