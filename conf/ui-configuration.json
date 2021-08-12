@@ -1,8 +1,8 @@
 {
     "configuration" : {
         "selfRegistration" : true,
-        "passwordReset" : false,
-        "forgotUsername" : false,
+        "passwordReset" : true,
+        "forgotUsername" : true,
         "lang" : "en",
         "passwordResetLink" : "",
         "roles" : {
@@ -26,6 +26,7 @@
         "defaultNotificationType" : "info",
         "logoutUrl" : "",
         "kbaDefinitionEnabled" : false,
-        "kbaEnabled" : true
+        "kbaEnabled" : true,
+        "kbaVerificationEnabled" : true
     }
 }
