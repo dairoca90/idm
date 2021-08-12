@@ -1,0 +1,29 @@
+{
+    "host" : "smtp.gmail.com",
+    "debug" : true,
+    "port" : "587",
+    "timeout" : 300000,
+    "writetimeout" : 300000,
+    "connectiontimeout" : 300000,
+    "auth" : {
+        "enable" : true,
+        "username" : "pidreon.mexico@gmail.com",
+        "password" : {
+            "$crypto" : {
+                "type" : "x-simple-encryption",
+                "value" : {
+                    "cipher" : "AES/CBC/PKCS5Padding",
+                    "salt" : "u6WTmIx/VD0+kXoT66fmCg==",
+                    "data" : "L6OQZU4Ufg0yjrzMsZ5x36BI6SJUf5ObyJJv+sfaQwc=",
+                    "iv" : "C2WjA80kbosClTtHEnBb5w==",
+                    "key" : "openidm-sym-default",
+                    "mac" : "WK4wNHER43s4WoulVrvYBw=="
+                }
+            }
+        }
+    },
+    "starttls" : {
+        "enable" : true
+    },
+    "from" : "pidreon.mexico@gmail.com"
+}

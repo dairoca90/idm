@@ -1,6 +1,6 @@
 {
     "enabled" : true,
-    "from" : "",
+    "from" : "pidreon.mexico@gmail.com",
     "subject" : {
         "en" : "Your account has been created"
     },
