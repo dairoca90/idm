@@ -11,6 +11,16 @@
         },
         "2" : {
             "en" : "Who was your first employer?"
+        },
+        "4" : {
+            "en" : "Whats your favorite song?",
+            "es" : "¿cual es tu cancion favorita?"
+        },
+        "5" : {
+            "en" : "whats your favorite book?",
+            "es" : "¿Cual es tu libro favorito?"
         }
-    }
+    },
+    "numberOfAttemptsAllowed" : 2,
+    "kbaAttemptsPropertyName" : "KBA_lockout"
 }

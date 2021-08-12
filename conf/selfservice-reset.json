@@ -31,13 +31,11 @@
             "mimeType" : "text/html",
             "subjectTranslations" : {
                 "en" : "Reset your password",
-                "fr" : "Réinitialisez votre mot de passe",
-                "es" : "Cambia tu password"
+                "fr" : "Réinitialisez votre mot de passe"
             },
             "messageTranslations" : {
                 "en" : "<h3>Click to reset your password</h3><h4><a href=\"%link%\">Password reset link</a></h4>",
-                "fr" : "<h3>Cliquez pour réinitialiser votre mot de passe</h3><h4><a href=\"%link%\">Mot de passe lien de réinitialisation</a></h4>",
-                "es" : "<h3>Sigue el link para cambiar tu password</h3><h4><a href=\"%link%\">Link de cambio de password</a></h4>"
+                "fr" : "<h3>Cliquez pour réinitialiser votre mot de passe</h3><h4><a href=\"%link%\">Mot de passe lien de réinitialisation</a></h4>"
             },
             "verificationLinkToken" : "%link%",
             "verificationLink" : "http://openidm.example.com:8080/#passwordReset/"

@@ -47,6 +47,10 @@
             "verificationLink" : "http://openidm.example.com:8080/#register/"
         },
         {
+            "name" : "kbaSecurityAnswerDefinitionStage",
+            "kbaConfig" : null
+        },
+        {
             "name" : "selfRegistration",
             "identityServiceUrl" : "managed/user"
         },
