@@ -36,15 +36,15 @@
             "subjectTranslations" : {
                 "en" : "Register new account",
                 "fr" : "Créer un nouveau compte",
-                "es" : "Registra tu cuenta"
+                "es" : "Registra tu nueva cuenta"
             },
             "messageTranslations" : {
                 "en" : "<h3>This is your registration email.</h3><h4><a href=\"%link%\">Email verification link</a></h4>",
                 "fr" : "<h3>Ceci est votre mail d'inscription.</h3><h4><a href=\"%link%\">Lien de vérification email</a></h4>",
-                "es" : "<h3>Este es tu mail de registro</h3><h4><a href=\"%link%\">link de verificacion de mail</a></h4>"
+                "es" : "<h3>Este es tu link de registro</h3><h4><a href=\"%link%\">Link de Verificacion</a></h4>"
             },
             "verificationLinkToken" : "%link%",
-            "verificationLink" : "https://openidm.example.com:8443/#register/"
+            "verificationLink" : "http://openidm.example.com:8080/#register/"
         },
         {
             "name" : "selfRegistration",
