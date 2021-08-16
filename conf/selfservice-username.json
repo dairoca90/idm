@@ -1,6 +1,12 @@
 {
     "stageConfigs" : [
         {
+            "name" : "captcha",
+            "recaptchaSiteKey" : "6Ldx2gIcAAAAADGuUYuE7Md62gurPUszFOIj3Mcy",
+            "recaptchaSecretKey" : "6Ldx2gIcAAAAAAMdKhrdzVNo0gSMTuDGDG93IEnL",
+            "recaptchaUri" : "https://www.google.com/recaptcha/api/siteverify"
+        },
+        {
             "name" : "userQuery",
             "validQueryFields" : [
                 "mail",
