@@ -10,7 +10,7 @@
         {
             "name" : "idmUserDetails",
             "identityEmailField" : "mail",
-            "socialRegistrationEnabled" : false,
+            "socialRegistrationEnabled" : true,
             "registrationProperties" : [
                 "userName",
                 "givenName",

@@ -49,7 +49,8 @@
                     "lastSync",
                     "kbaInfo",
                     "preferences",
-                    "consentedMappings"
+                    "consentedMappings",
+                    "idps"
                 ],
                 "properties" : {
                     "_id" : {
@@ -83,7 +84,7 @@
                             "key" : "openidm-sym-default"
                         },
                         "scope" : "private",
-                        "isProtected": true,
+                        "isProtected" : true,
                         "usageDescription" : "",
                         "isPersonal" : false,
                         "policies" : [
@@ -135,12 +136,12 @@
                                     "type" : "string"
                                 }
                             },
-                            "order": [
+                            "order" : [
                                 "answer",
                                 "customQuestion",
                                 "questionId"
                             ],
-                            "required": []
+                            "required" : [ ]
                         }
                     },
                     "preferences" : {
@@ -157,16 +158,16 @@
                                 "description" : "Send me news and updates",
                                 "type" : "boolean"
                             },
-                            "marketing": {
+                            "marketing" : {
                                 "description" : "Send me special offers and services",
                                 "type" : "boolean"
                             }
                         },
-                        "order": [
+                        "order" : [
                             "updates",
                             "marketing"
                         ],
-                        "required": []
+                        "required" : [ ]
                     },
                     "mail" : {
                         "title" : "Email Address",
@@ -433,7 +434,7 @@
                         "isPersonal" : false,
                         "onRetrieve" : {
                             "type" : "text/javascript",
-                             "source" : "require('roles/effectiveRoles').calculateEffectiveRoles(object, 'roles');"
+                            "source" : "require('roles/effectiveRoles').calculateEffectiveRoles(object, 'roles');"
                         },
                         "items" : {
                             "type" : "object",
@@ -586,7 +587,7 @@
                             "effectiveAssignments",
                             "timestamp"
                         ],
-                        "required": []
+                        "required" : [ ]
                     },
                     "consentedMappings" : {
                         "title" : "Consented Mappings",
@@ -633,6 +634,86 @@
                         },
                         "returnByDefault" : false,
                         "isVirtual" : false
+                    },
+                    "idps" : {
+                        "title" : "Identity Providers",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "type" : "array",
+                        "items" : {
+                            "type" : "relationship",
+                            "reverseRelationship" : true,
+                            "reversePropertyName" : "user",
+                            "notifySelf" : true,
+                            "validate" : true,
+                            "properties" : {
+                                "_ref" : {
+                                    "description" : "References a relationship from a managed object",
+                                    "type" : "string"
+                                },
+                                "_refProperties" : {
+                                    "description" : "Supports metadata within the relationship",
+                                    "type" : "object",
+                                    "title" : "Identity Providers _refProperties",
+                                    "properties" : { }
+                                }
+                            },
+                            "resourceCollection" : [
+                                {
+                                    "path" : "managed/google",
+                                    "label" : "google Info",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "sub",
+                                            "name",
+                                            "given_name"
+                                        ],
+                                        "sortKeys" : [
+                                            "sub",
+                                            "name",
+                                            "given_name"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "path" : "managed/facebook",
+                                    "label" : "facebook Info",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "id",
+                                            "name",
+                                            "first_name"
+                                        ],
+                                        "sortKeys" : [
+                                            "id",
+                                            "name",
+                                            "first_name"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "path" : "managed/linkedIn",
+                                    "label" : "linkedIn Info",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "id",
+                                            "formattedName",
+                                            "emailAddress"
+                                        ],
+                                        "sortKeys" : [
+                                            "id",
+                                            "formattedName",
+                                            "emailAddress"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 },
                 "type" : "object",
@@ -644,12 +725,40 @@
                 ]
             },
             "meta" : {
-              "property" : "_meta",
-              "resourceCollection" : "internal/usermeta",
-              "trackedProperties" : [
-                  "createDate",
-                  "lastChanged"
-              ]
+                "property" : "_meta",
+                "resourceCollection" : "internal/usermeta",
+                "trackedProperties" : [
+                    "createDate",
+                    "lastChanged"
+                ]
+            },
+            "actions" : {
+                "unbind" : {
+                    "type" : "text/javascript",
+                    "file" : "ui/unBindBehavior.js",
+                    "apiDescriptor" : {
+                        "parameters" : [
+                            {
+                                "name" : "provider",
+                                "type" : "string",
+                                "required" : true
+                            }
+                        ]
+                    }
+                },
+                "bind" : {
+                    "type" : "text/javascript",
+                    "file" : "ui/bindBehavior.js",
+                    "apiDescriptor" : {
+                        "parameters" : [
+                            {
+                                "name" : "provider",
+                                "type" : "string",
+                                "required" : true
+                            }
+                        ]
+                    }
+                }
             }
         },
         {
@@ -850,7 +959,9 @@
                                 }
                             ]
                         },
-                        "notifyRelationships" : ["members"]
+                        "notifyRelationships" : [
+                            "members"
+                        ]
                     },
                     "condition" : {
                         "description" : "A conditional filter for this role",
@@ -881,7 +992,9 @@
                                 "duration"
                             ]
                         },
-                        "notifyRelationships" : ["members"]
+                        "notifyRelationships" : [
+                            "members"
+                        ]
                     }
                 },
                 "required" : [
@@ -974,9 +1087,11 @@
                                 "name",
                                 "value"
                             ],
-                            "required": []
+                            "required" : [ ]
                         },
-                        "notifyRelationships" : ["roles"]
+                        "notifyRelationships" : [
+                            "roles"
+                        ]
                     },
                     "linkQualifiers" : {
                         "description" : "Conditional link qualifiers to restrict this assignment to.",
@@ -1049,6 +1164,339 @@
                     "linkQualifiers",
                     "roles"
                 ]
+            }
+        },
+        {
+            "name" : "google",
+            "title" : "google User Info",
+            "schema" : {
+                "title" : "Google",
+                "type" : "object",
+                "viewable" : true,
+                "properties" : {
+                    "user" : {
+                        "viewable" : true,
+                        "searchable" : false,
+                        "type" : "relationship",
+                        "title" : "User",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "idps",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "description" : "References a relationship from a managed object",
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "description" : "Supports metadata within the relationship",
+                                "type" : "object",
+                                "title" : "googleuser _refProperties",
+                                "properties" : { }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "notify" : true,
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName"
+                                    ],
+                                    "sortKeys" : [
+                                        "userName"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "sub" : {
+                        "description" : "ID",
+                        "title" : "ID",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "name" : {
+                        "description" : "Name",
+                        "title" : "Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "given_name" : {
+                        "description" : "First Name",
+                        "title" : "First Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "family_name" : {
+                        "description" : "Last Name",
+                        "title" : "Last Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "picture" : {
+                        "description" : "Profile Picture URL",
+                        "title" : "Profile Picture URL",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "email" : {
+                        "description" : "Email Address",
+                        "title" : "Email Address",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "locale" : {
+                        "description" : "Locale Code",
+                        "title" : "Locale Code",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    }
+                },
+                "order" : [
+                    "sub",
+                    "name",
+                    "given_name",
+                    "family_name",
+                    "picture",
+                    "email",
+                    "locale",
+                    "user"
+                ],
+                "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:Google",
+                "$schema" : "http://json-schema.org/draft-03/schema",
+                "required" : [ ]
+            }
+        },
+        {
+            "name" : "facebook",
+            "title" : "facebook User Info",
+            "schema" : {
+                "title" : "Facebook",
+                "type" : "object",
+                "viewable" : true,
+                "properties" : {
+                    "user" : {
+                        "viewable" : true,
+                        "searchable" : false,
+                        "type" : "relationship",
+                        "title" : "User",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "idps",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "description" : "References a relationship from a managed object",
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "description" : "Supports metadata within the relationship",
+                                "type" : "object",
+                                "title" : "facebookuser _refProperties",
+                                "properties" : { }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "notify" : true,
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName"
+                                    ],
+                                    "sortKeys" : [
+                                        "userName"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "id" : {
+                        "description" : "ID",
+                        "title" : "ID",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "name" : {
+                        "description" : "Name",
+                        "title" : "Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "first_name" : {
+                        "description" : "First Name",
+                        "title" : "First Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "last_name" : {
+                        "description" : "Last Name",
+                        "title" : "Last Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "email" : {
+                        "description" : "Email Address",
+                        "title" : "Email Address",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "locale" : {
+                        "description" : "Locale Code",
+                        "title" : "Locale Code",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    }
+                },
+                "order" : [
+                    "id",
+                    "name",
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "locale",
+                    "user"
+                ],
+                "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:Facebook",
+                "$schema" : "http://json-schema.org/draft-03/schema",
+                "required" : [ ]
+            }
+        },
+        {
+            "name" : "linkedIn",
+            "title" : "linkedIn User Info",
+            "schema" : {
+                "title" : "LinkedIn",
+                "type" : "object",
+                "viewable" : true,
+                "properties" : {
+                    "user" : {
+                        "viewable" : true,
+                        "searchable" : false,
+                        "type" : "relationship",
+                        "title" : "User",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "idps",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "description" : "References a relationship from a managed object",
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "description" : "Supports metadata within the relationship",
+                                "type" : "object",
+                                "title" : "linkedInuser _refProperties",
+                                "properties" : { }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "notify" : true,
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName"
+                                    ],
+                                    "sortKeys" : [
+                                        "userName"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "id" : {
+                        "description" : "ID",
+                        "title" : "ID",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : false
+                    },
+                    "formattedName" : {
+                        "description" : "Formatted Name",
+                        "title" : "Formatted Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "firstName" : {
+                        "description" : "First Name",
+                        "title" : "First Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "lastName" : {
+                        "description" : "Last Name",
+                        "title" : "Last Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "emailAddress" : {
+                        "description" : "Email Address",
+                        "title" : "Email Address",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "location" : {
+                        "description" : "Location",
+                        "title" : "Location",
+                        "viewable" : true,
+                        "type" : "object",
+                        "searchable" : true,
+                        "properties" : {
+                            "country" : {
+                                "description" : "Country",
+                                "title" : "Country",
+                                "type" : "object",
+                                "properties" : {
+                                    "code" : {
+                                        "description" : "Locale Code",
+                                        "title" : "Locale Code",
+                                        "type" : "string"
+                                    }
+                                }
+                            },
+                            "name" : {
+                                "description" : "Area Name",
+                                "type" : "string",
+                                "title" : "Area Name"
+                            }
+                        }
+                    }
+                },
+                "order" : [
+                    "id",
+                    "formattedName",
+                    "emailAddress",
+                    "firstName",
+                    "lastName",
+                    "location",
+                    "user"
+                ],
+                "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:LinkedIn",
+                "$schema" : "http://json-schema.org/draft-03/schema",
+                "required" : [ ]
             }
         }
     ]

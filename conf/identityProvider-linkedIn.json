@@ -1,0 +1,151 @@
+{
+    "provider" : "linkedIn",
+    "authorizationEndpoint" : "https://www.linkedin.com/oauth/v2/authorization",
+    "tokenEndpoint" : "https://www.linkedin.com/oauth/v2/accessToken",
+    "userInfoEndpoint" : "https://api.linkedin.com/v1/people/~:(id,formatted-name,first-name,last-name,email-address,location)?format=json",
+    "clientId" : "oepasna",
+    "clientSecret" : {
+        "$crypto" : {
+            "type" : "x-simple-encryption",
+            "value" : {
+                "cipher" : "AES/CBC/PKCS5Padding",
+                "salt" : "8zPJzG6KAcfXm0MalQz9dQ==",
+                "data" : "yhDp1ANXvlL9F9nlFVJfAg==",
+                "iv" : "fk0x/Vll3fX3C45+N7mChw==",
+                "key" : "openidm-sym-default",
+                "mac" : "FW/eyukHHtVo4WDEYq/46A=="
+            }
+        }
+    },
+    "scope" : [
+        "r_basicprofile",
+        "r_emailaddress"
+    ],
+    "authenticationIdKey" : "id",
+    "basicAuth" : false,
+    "uiConfig" : {
+        "iconBackground" : "#0077b5",
+        "iconClass" : "fa-linkedin",
+        "iconFontColor" : "white",
+        "buttonClass" : "fa-linkedin",
+        "buttonDisplayName" : "LinkedIn",
+        "buttonCustomStyle" : "background-color:#0077b5;border-color:#0077b5;color:white;",
+        "buttonCustomStyleHover" : "background-color:#006ea9; border-color:#006ea9;color:white;"
+    },
+    "schema" : {
+        "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:LinkedIn",
+        "title" : "LinkedIn",
+        "viewable" : true,
+        "type" : "object",
+        "$schema" : "http://json-schema.org/draft-03/schema",
+        "properties" : {
+            "id" : {
+                "description" : "ID",
+                "title" : "ID",
+                "viewable" : true,
+                "type" : "string",
+                "searchable" : false
+            },
+            "formattedName" : {
+                "description" : "Formatted Name",
+                "title" : "Formatted Name",
+                "viewable" : true,
+                "type" : "string",
+                "searchable" : true
+            },
+            "firstName" : {
+                "description" : "First Name",
+                "title" : "First Name",
+                "viewable" : true,
+                "type" : "string",
+                "searchable" : true
+            },
+            "lastName" : {
+                "description" : "Last Name",
+                "title" : "Last Name",
+                "viewable" : true,
+                "type" : "string",
+                "searchable" : true
+            },
+            "emailAddress" : {
+                "description" : "Email Address",
+                "title" : "Email Address",
+                "viewable" : true,
+                "type" : "string",
+                "searchable" : true
+            },
+            "location" : {
+                "description" : "Location",
+                "title" : "Location",
+                "viewable" : true,
+                "type" : "object",
+                "searchable" : true,
+                "properties" : {
+                    "country" : {
+                        "description" : "Country",
+                        "title" : "Country",
+                        "type" : "object",
+                        "properties" : {
+                            "code" : {
+                                "description" : "Locale Code",
+                                "title" : "Locale Code",
+                                "type" : "string"
+                            }
+                        }
+                    },
+                    "name" : {
+                        "description" : "Area Name",
+                        "type" : "string",
+                        "title" : "Area Name"
+                    }
+                }
+            }
+        },
+        "order" : [
+            "id",
+            "formattedName",
+            "emailAddress",
+            "firstName",
+            "lastName",
+            "location"
+        ],
+        "required" : [ ]
+    },
+    "propertyMap" : [
+        {
+            "source" : "id",
+            "target" : "id"
+        },
+        {
+            "source" : "formattedName",
+            "target" : "displayName"
+        },
+        {
+            "source" : "firstName",
+            "target" : "givenName"
+        },
+        {
+            "source" : "lastName",
+            "target" : "familyName"
+        },
+        {
+            "source" : "emailAddress",
+            "target" : "email"
+        },
+        {
+            "source" : "emailAddress",
+            "target" : "username"
+        },
+        {
+            "source" : "location",
+            "target" : "locale",
+            "transform" : {
+                "type" : "text/javascript",
+                "source" : "source.country.code"
+            }
+        }
+    ],
+    "redirectUri" : "http://openidm.example.com:8080/oauthReturn/",
+    "configClass" : "org.forgerock.oauth.clients.oauth2.OAuth2ClientConfiguration",
+    "enabled" : true
+}
