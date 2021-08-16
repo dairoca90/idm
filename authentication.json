@@ -10,8 +10,8 @@
                 "keystorePassword" : "&{openidm.keystore.password}",
                 "sessionOnly" : true,
                 "isHttpOnly" : true,
-                "maxTokenLifeSeconds" : "5",
-                "tokenIdleTimeSeconds" : "5"
+                "maxTokenLifeMinutes" : "1200",
+                "tokenIdleTimeMinutes" : "300"
             }
         },
         "authModules" : [
@@ -55,7 +55,7 @@
                     },
                     "defaultUserRoles" : [ ]
                 },
-                "enabled" : false
+                "enabled" : true
             },
             {
                 "name" : "INTERNAL_USER",
@@ -80,7 +80,7 @@
                     ],
                     "allowedAuthenticationIdPatterns" : [ ]
                 },
-                "enabled" : false
+                "enabled" : true
             },
             {
                 "name" : "SOCIAL_PROVIDERS",
@@ -97,7 +97,7 @@
                         "userRoles" : "authzRoles"
                     }
                 },
-                "enabled" : false
+                "enabled" : true
             },
             {
                 "name" : "STATIC_USER",
@@ -108,57 +108,6 @@
                     "defaultUserRoles" : [
                         "&{openidm.prometheus.role}"
                     ]
-                },
-                "enabled" : true
-            },
-            {
-                "name" : "OAUTH_CLIENT",
-                "properties" : {
-                    "augmentSecurityContext" : {
-                        "type" : "text/javascript",
-                        "globals" : {
-                            "sessionValidationBaseEndpoint" : "http://am.example.com:18080/am/json/subscribers/sessions/"
-                        },
-                        "file" : "auth/amSessionCheck.js"
-                    },
-                    "propertyMapping" : {
-                        "authenticationId" : "uid",
-                        "userRoles" : "authzRoles"
-                    },
-                    "defaultUserRoles" : [
-                        "openidm-authorized"
-                    ],
-                    "idpConfig" : {
-                        "provider" : "OPENAM",
-                        "icon" : "<button class=\"btn btn-lg btn-default btn-block btn-social-provider\"><img src=\"images/forgerock_logo.png\">Sign In</button>",
-                        "scope" : [
-                            "openid"
-                        ],
-                        "authenticationIdKey" : "sub",
-                        "clientId" : "openidm",
-                        "clientSecret" : {
-                            "$crypto" : {
-                                "type" : "x-simple-encryption",
-                                "value" : {
-                                    "cipher" : "AES/CBC/PKCS5Padding",
-                                    "salt" : "CbLLdKTnQeZbQxCQYnhiHQ==",
-                                    "data" : "tsaPIVybM6t8B7wrzxWpew==",
-                                    "iv" : "1rQ85be6+ud8xrKbueUD/w==",
-                                    "key" : "openidm-sym-default",
-                                    "mac" : "E2XBPQ+QwbZt+5rRh7begg=="
-                                }
-                            }
-                        },
-                        "authorizationEndpoint" : "http://am.example.com:18080/am/oauth2/realms/root/realms/subscribers/authorize",
-                        "tokenEndpoint" : "http://am.example.com:18080/am/oauth2/realms/root/realms/subscribers/access_token",
-                        "endSessionEndpoint" : "http://am.example.com:18080/am/oauth2/realms/root/realms/subscribers/connect/endSession",
-                        "wellKnownEndpoint" : "http://am.example.com:18080/am/oauth2/subscribers/.well-known/openid-configuration",
-                        "redirectUri" : "http://openidm.example.com:8080/oauthReturn/",
-                        "configClass" : "org.forgerock.oauth.clients.oidc.OpenIDConnectClientConfiguration",
-                        "displayIcon" : "forgerock",
-                        "enabled" : true
-                    },
-                    "queryOnResource" : "system/subscribers/account"
                 },
                 "enabled" : true
             }

@@ -27,6 +27,13 @@
         "logoutUrl" : "",
         "kbaDefinitionEnabled" : true,
         "kbaEnabled" : true,
-        "kbaVerificationEnabled" : true
+        "kbaVerificationEnabled" : true,
+        "amDataEndpoints" : {
+            "baseUrl" : "http://am.example.com:18080/am/json/realms/root/realms/subscribers/users/",
+            "trustedDevices" : "/devices/trusted/",
+            "oauthApplications" : "/oauth2/applications/",
+            "resourceSet" : "/oauth2/resources/sets/",
+            "auditHistory" : "/uma/auditHistory/"
+        }
     }
 }

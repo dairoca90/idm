@@ -55,10 +55,11 @@
             "identityServiceUrl" : "managed/user"
         },
         {
-            "name" : "localAutoLogin",
+            "name" : "openAMAutoLogin",
             "identityUsernameField" : "userName",
             "identityPasswordField" : "password",
-            "successUrl" : ""
+            "openAMBaseUrl" : "http://am.example.com:18080/am/",
+            "authenticationEndpoint" : "json/realms/root/realms/subscribers/authenticate"
         }
     ],
     "snapshotToken" : {
