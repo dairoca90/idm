@@ -3,7 +3,7 @@
         "selfRegistration" : true,
         "passwordReset" : true,
         "forgotUsername" : true,
-        "lang" : "en",
+        "lang" : "es",
         "passwordResetLink" : "",
         "roles" : {
             "openidm-authorized" : "ui-user",

@@ -8,19 +8,21 @@
     ],
     "settings" : {
         "logo" : {
-            "src" : "images/logo-horizontal-white.png",
-            "title" : "ForgeRock",
-            "alt" : "ForgeRock"
+            "src" : "images/logoFEC.png",
+            "title" : "FECtheme",
+            "alt" : "FEClogoLoggedIn",
+	    "height" : "60px",
+	    "width" : "60px"
         },
         "loginLogo" : {
-            "src" : "images/login-logo-dark.png",
-            "title" : "ForgeRock",
-            "alt" : "ForgeRock",
-            "height" : "104px",
-            "width" : "210px"
+            "src" : "images/logoFEC.png",
+            "title" : "FECtheme",
+            "alt" : "FEClogoLoginReg",
+            "height" : "150px",
+            "width" : "150px"
         },
         "footer" : {
-            "mailto" : "info@forgerock.com"
+            "mailto" : "info@fec.example.com"
         }
     }
 }
