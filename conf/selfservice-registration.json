@@ -15,7 +15,9 @@
                 "userName",
                 "givenName",
                 "sn",
-                "mail"
+                "mail",
+                "subscribersAge",
+                "subscribersFavMovie"
             ],
             "identityServiceUrl" : "managed/user",
             "registrationPreferences" : [
