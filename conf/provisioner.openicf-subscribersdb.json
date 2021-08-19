@@ -1,0 +1,216 @@
+{
+    "connectorRef" : {
+        "bundleName" : "org.forgerock.openicf.connectors.scriptedsql-connector",
+        "bundleVersion" : "[1.5.0.0,1.6.0.0)",
+        "connectorName" : "org.forgerock.openicf.connectors.scriptedsql.ScriptedSQLConnector"
+    },
+    "producerBufferSize" : 100,
+    "connectorPoolingSupported" : true,
+    "poolConfigOption" : {
+        "maxObjects" : 10,
+        "maxIdle" : 10,
+        "maxWait" : 150000,
+        "minEvictableIdleTimeMillis" : 120000,
+        "minIdle" : 1
+    },
+    "operationTimeout" : {
+        "CREATE" : -1,
+        "TEST" : -1,
+        "AUTHENTICATE" : -1,
+        "SEARCH" : -1,
+        "VALIDATE" : -1,
+        "GET" : -1,
+        "UPDATE" : -1,
+        "DELETE" : -1,
+        "SCRIPT_ON_CONNECTOR" : -1,
+        "SCRIPT_ON_RESOURCE" : -1,
+        "SYNC" : -1,
+        "SCHEMA" : -1
+    },
+    "configurationProperties" : {
+        "username" : "root",
+        "password" : {
+            "$crypto" : {
+                "type" : "x-simple-encryption",
+                "value" : {
+                    "cipher" : "AES/CBC/PKCS5Padding",
+                    "salt" : "rSduu0f1rAAMEifaoO8ShA==",
+                    "data" : "ttAvedXLEeS6YbCBSfweyg==",
+                    "iv" : "R8Ul7W39BVmBZNZqd3uA9Q==",
+                    "key" : "openidm-sym-default",
+                    "mac" : "JzwC4KuKyGNE343I548Vkw=="
+                }
+            }
+        },
+        "driverClassName" : "com.mysql.jdbc.Driver",
+        "url" : "jdbc:mysql://localhost:3306/subscribersdb",
+        "autoCommit" : true,
+        "validationQuery" : "SELECT 1 FROM DUAL",
+        "validationInterval" : "2000",
+        "testOnBorrow" : true,
+        "reloadScriptOnExecution" : false,
+        "authenticateScriptFileName" : "AuthenticateScript.groovy",
+        "createScriptFileName" : "CreateScript.groovy",
+        "testScriptFileName" : "TestScript.groovy",
+        "searchScriptFileName" : "SearchScript.groovy",
+        "deleteScriptFileName" : "DeleteScript.groovy",
+        "updateScriptFileName" : "UpdateScript.groovy",
+        "syncScriptFileName" : "SyncScript.groovy",
+        "schemaScriptFileName" : "SchemaScript.groovy",
+        "scriptRoots" : [
+            "&{idm.instance.dir}/tools"
+        ]
+    },
+    "resultsHandlerConfig" : {
+        "enableAttributesToGetSearchResultsHandler" : true
+    },
+    "systemActions" : [
+        {
+            "scriptId" : "ResetDatabase",
+            "actions" : [
+                {
+                    "systemType" : ".*ScriptedSQLConnector",
+                    "actionType" : "groovy",
+                    "actionFile" : "tools/ResetDatabaseScript.groovy"
+                }
+            ]
+        }
+    ],
+    "syncFailureHandler" : {
+        "maxRetries" : 5,
+        "postRetryAction" : "logged-ignore"
+    },
+    "objectTypes" : {
+        "group" : {
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "id" : "__GROUP__",
+            "type" : "object",
+            "nativeType" : "__GROUP__",
+            "properties" : {
+                "name" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "__NAME__",
+                    "nativeType" : "string"
+                },
+                "gid" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "gid",
+                    "nativeType" : "string"
+                },
+                "description" : {
+                    "type" : "string",
+                    "required" : false,
+                    "nativeName" : "description",
+                    "nativeType" : "string"
+                },
+                "subscribers" : {
+                    "type" : "array",
+                    "nativeName" : "subscribers",
+                    "nativeType" : "object",
+                    "items" : {
+                        "type" : "object",
+                        "properties" : {
+                            "uid" : "string"
+                        }
+                    }
+                }
+            }
+        },
+        "subscription" : {
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "id" : "subscription",
+            "type" : "object",
+            "nativeType" : "subscription",
+            "properties" : {
+                "name" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "__NAME__",
+                    "nativeType" : "string"
+                },
+                "description" : {
+                    "type" : "string",
+                    "required" : false,
+                    "nativeName" : "description",
+                    "nativeType" : "string"
+                }
+            }
+        },
+        "account" : {
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "id" : "__ACCOUNT__",
+            "type" : "object",
+            "nativeType" : "__ACCOUNT__",
+            "properties" : {
+                "firstName" : {
+                    "type" : "string",
+                    "nativeName" : "firstname",
+                    "nativeType" : "string",
+                    "required" : true
+                },
+                "email" : {
+                    "type" : "string",
+                    "nativeName" : "email",
+                    "nativeType" : "string"
+                },
+                "movies" : {
+                    "type" : "array",
+                    "nativeName" : "movies",
+                    "nativeType" : "object",
+                    "items" : {
+                        "type" : "object",
+                        "properties" : {
+                            "year" : {
+                                "type" : "string"
+                            },
+                            "title" : {
+                                "type" : "string"
+                            },
+                            "description" : {
+                                "type" : "string"
+                            },
+                            "rating" : {
+                                "type" : "string"
+                            }
+                        }
+                    }
+                },
+                "password" : {
+                    "type" : "string",
+                    "nativeName" : "password",
+                    "nativeType" : "string",
+                    "flags" : [
+                        "NOT_READABLE",
+                        "NOT_RETURNED_BY_DEFAULT"
+                    ]
+                },
+                "uid" : {
+                    "type" : "string",
+                    "nativeName" : "__NAME__",
+                    "required" : true,
+                    "nativeType" : "string"
+                },
+                "fullName" : {
+                    "type" : "string",
+                    "nativeName" : "fullname",
+                    "nativeType" : "string"
+                },
+                "lastName" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "lastname",
+                    "nativeType" : "string"
+                },
+                "subscription" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "subscription",
+                    "nativeType" : "string"
+                }
+            }
+        }
+    },
+    "operationOptions" : { }
+}
