@@ -10,8 +10,8 @@
                 "keystorePassword" : "&{openidm.keystore.password}",
                 "sessionOnly" : true,
                 "isHttpOnly" : true,
-                "maxTokenLifeSeconds" : "5",
-                "tokenIdleTimeSeconds" : "5"
+                "maxTokenLifeMinutes" : "120",
+                "tokenIdleTimeMinutes" : "30"
             }
         },
         "authModules" : [
@@ -55,7 +55,7 @@
                     },
                     "defaultUserRoles" : [ ]
                 },
-                "enabled" : false
+                "enabled" : true
             },
             {
                 "name" : "INTERNAL_USER",
@@ -80,7 +80,7 @@
                     ],
                     "allowedAuthenticationIdPatterns" : [ ]
                 },
-                "enabled" : false
+                "enabled" : true
             },
             {
                 "name" : "SOCIAL_PROVIDERS",
@@ -97,7 +97,7 @@
                         "userRoles" : "authzRoles"
                     }
                 },
-                "enabled" : false
+                "enabled" : true
             },
             {
                 "name" : "STATIC_USER",
@@ -160,7 +160,7 @@
                     },
                     "queryOnResource" : "system/subscribers/account"
                 },
-                "enabled" : true
+                "enabled" : false
             }
         ]
     }

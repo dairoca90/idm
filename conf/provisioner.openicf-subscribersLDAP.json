@@ -14,19 +14,16 @@
                 "type" : "x-simple-encryption",
                 "value" : {
                     "cipher" : "AES/CBC/PKCS5Padding",
-                    "salt" : "ws4d2xZzq0QLpmzxKBBMLg==",
-                    "data" : "jg8KYZRplAc/YaXWN5LN2g==",
-                    "iv" : "HybeUAdOfuuYhGTLXN9Hpg==",
+                    "salt" : "rir5j99QwJjNN85xDKRdzw==",
+                    "data" : "pnQiIt46v3MCqK9PLeyreA==",
+                    "iv" : "R3H2PuOtv9EKPhhMba9IVg==",
                     "key" : "openidm-sym-default",
-                    "mac" : "m96wn/YAnqSCQ19NzbGtFA=="
+                    "mac" : "JuPjjsUYGkAkTwn9rUOsZA=="
                 }
             }
         },
         "baseContexts" : [
-            "ou=subscribers,dc=example,dc=com"
-        ],
-        "baseContextsToSynchronize" : [
-            "ou=subscribers,dc=example,dc=com"
+            "dc=example,dc=com"
         ],
         "accountSearchFilter" : null,
         "accountSynchronizationFilter" : null,
@@ -55,7 +52,8 @@
             "top",
             "person",
             "organizationalPerson",
-            "inetOrgPerson"
+            "inetOrgPerson",
+            "fec-subscriberPerson"
         ],
         "accountUserNameAttributes" : [
             "uid"
@@ -64,9 +62,12 @@
         "passwordHashAlgorithm" : null,
         "usePagedResultControl" : true,
         "blockSize" : "100",
-        "uidAttribute" : "entryUUID",
+        "uidAttribute" : "dn",
         "maintainLdapGroupMembership" : false,
-        "respectResourcePasswordPolicyChangeAfterReset" : false
+        "respectResourcePasswordPolicyChangeAfterReset" : false,
+        "baseContextsToSynchronize" : [
+            "dc=example,dc=com"
+        ]
     },
     "resultsHandlerConfig" : {
         "enableNormalizingResultsHandler" : true,
@@ -102,8 +103,8 @@
     "objectTypes" : {
         "account" : {
             "$schema" : "http://json-schema.org/draft-03/schema",
-            "id" : "__ACCOUNT__",
             "type" : "object",
+            "id" : "__ACCOUNT__",
             "nativeType" : "__ACCOUNT__",
             "properties" : {
                 "dn" : {
@@ -207,6 +208,38 @@
                     "nativeType" : "string",
                     "nativeName" : "kbaInfo",
                     "required" : false
+                },
+                "subscribersAge" : {
+                    "type" : "string",
+                    "nativeName" : "fec-subscriberAge",
+                    "nativeType" : "string",
+                    "required" : false,
+                    "flags" : [ ],
+                    "runAsUser" : false
+                },
+                "subscribersFavMovie" : {
+                    "type" : "string",
+                    "nativeName" : "fec-subscriberFavMovie",
+                    "nativeType" : "string",
+                    "required" : false,
+                    "flags" : [ ],
+                    "runAsUser" : false
+                },
+                "subscriberAccountOwner" : {
+                    "type" : "string",
+                    "nativeName" : "fec-subscriberAccountOwner",
+                    "nativeType" : "string",
+                    "required" : false,
+                    "flags" : [ ],
+                    "runAsUser" : false
+                },
+                "subscriberRole" : {
+                    "type" : "string",
+                    "nativeName" : "fec-subscriberRole",
+                    "nativeType" : "string",
+                    "required" : false,
+                    "flags" : [ ],
+                    "runAsUser" : false
                 }
             }
         },

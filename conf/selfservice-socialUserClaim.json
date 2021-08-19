@@ -12,11 +12,10 @@
             "claimQueryFilter" : "/mail eq \"{{mail}}\""
         },
         {
-            "name" : "openAMAutoLogin",
+            "name" : "localAutoLogin",
             "identityUsernameField" : "userName",
             "identityPasswordField" : "password",
-            "openAMBaseUrl" : "http://am.example.com:18080/am/",
-            "authenticationEndpoint" : "json/realms/root/realms/subscribers/authenticate"
+            "successUrl" : ""
         }
     ],
     "snapshotToken" : {
