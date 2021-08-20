@@ -147,7 +147,8 @@
                     "linkQualifier" : "default",
                     "expressionTree" : {
                         "all" : [
-                            "uid"
+                            "uid",
+                            "mail"
                         ]
                     },
                     "mapping" : "managedUser_systemSubscribersldapAccount",
@@ -190,64 +191,66 @@
             ],
             "policies" : [
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "AMBIGUOUS"
+                    "action" : "ASYNC",
+                    "situation" : "ABSENT"
                 },
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "SOURCE_MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "FOUND_ALREADY_LINKED"
-                },
-                {
-                    "action" : "DELETE",
-                    "situation" : "UNQUALIFIED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "UNASSIGNED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "LINK_ONLY"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "TARGET_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "SOURCE_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
+                    "action" : "ASYNC",
                     "situation" : "ALL_GONE"
                 },
                 {
-                    "action" : "UPDATE",
+                    "action" : "ASYNC",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "ASYNC",
                     "situation" : "CONFIRMED"
                 },
                 {
-                    "action" : "UPDATE",
+                    "action" : "ASYNC",
                     "situation" : "FOUND"
                 },
                 {
-                    "action" : "CREATE",
-                    "situation" : "ABSENT"
+                    "action" : "ASYNC",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "ASYNC",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "ASYNC",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "ASYNC",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "ASYNC",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "ASYNC",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "ASYNC",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "ASYNC",
+                    "situation" : "UNQUALIFIED"
                 }
             ],
+            "links" : "managedUser_systemSubscribersldapAccount",
             "correlationQuery" : [
                 {
                     "linkQualifier" : "default",
                     "expressionTree" : {
                         "all" : [
-                            "userName"
+                            "userName",
+                            "mail"
                         ]
                     },
                     "mapping" : "systemSubscribersldapAccount_managedUser",
