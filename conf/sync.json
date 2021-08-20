@@ -1,3 +1,161 @@
 {
-    "mappings" : [ ]
+    "mappings" : [
+        {
+            "target" : "system/subscribersLDAP/account",
+            "source" : "managed/user",
+            "name" : "managedUser_systemSubscribersldapAccount",
+            "icon" : null,
+            "displayName" : "managedUser_systemSubscribersldapAccount",
+            "properties" : [
+                {
+                    "target" : "uid",
+                    "source" : "userName"
+                },
+                {
+                    "target" : "givenName",
+                    "source" : "givenName"
+                },
+                {
+                    "target" : "sn",
+                    "source" : "sn"
+                },
+                {
+                    "target" : "mail",
+                    "source" : "mail"
+                },
+                {
+                    "target" : "cn",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "source.displayName || (source.givenName + ' ' + source.sn);"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "telephoneNumber",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "!!object.telephoneNumber;"
+                    },
+                    "source" : "telephoneNumber"
+                },
+                {
+                    "target" : "description",
+                    "source" : "description",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "!!object.description;"
+                    }
+                },
+                {
+                    "target" : "subscribersAge",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "!!object.subscribersAge"
+                    },
+                    "source" : "subscribersAge"
+                },
+                {
+                    "target" : "subscribersFavMovie",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "!!object.subscribersFavMovie"
+                    },
+                    "source" : "subscribersFavMovie"
+                },
+                {
+                    "target" : "userPassword",
+                    "source" : "password",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "openidm.decrypt(source);"
+                    },
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "object.password != null"
+                    }
+                }
+            ],
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "onCreate" : {
+                "type" : "text/javascript",
+                "globals" : { },
+                "source" : "target.dn = 'uid=' + source.userName + ',ou=People,ou=subscribers,dc=example,dc=com';"
+            },
+            "correlationQuery" : [
+                {
+                    "linkQualifier" : "default",
+                    "expressionTree" : {
+                        "all" : [
+                            "uid",
+                            "mail"
+                        ]
+                    },
+                    "mapping" : "managedUser_systemSubscribersldapAccount",
+                    "type" : "text/javascript",
+                    "file" : "ui/correlateTreeToQueryFilter.js"
+                }
+            ]
+        }
+    ]
 }
