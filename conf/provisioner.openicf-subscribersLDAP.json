@@ -97,7 +97,7 @@
         "SEARCH" : -1
     },
     "syncFailureHandler" : {
-        "maxRetries" : 5,
+        "maxRetries" : -1,
         "postRetryAction" : "logged-ignore"
     },
     "objectTypes" : {

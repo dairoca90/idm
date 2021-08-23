@@ -1,0 +1,19 @@
+{
+    "enabled" : false,
+    "persisted" : true,
+    "recoverable" : false,
+    "misfirePolicy" : "fireAndProceed",
+    "schedule" : "0/25 * * * * ?",
+    "repeatInterval" : 0,
+    "repeatCount" : 0,
+    "type" : "cron",
+    "invokeService" : "provisioner",
+    "invokeContext" : {
+        "action" : "liveSync",
+        "source" : "system/subscribersLDAP/account"
+    },
+    "invokeLogLevel" : "info",
+    "startTime" : null,
+    "endTime" : null,
+    "concurrentExecution" : false
+}
