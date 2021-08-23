@@ -230,7 +230,7 @@
                     "situation" : "ALL_GONE"
                 },
                 {
-                    "action" : "UPDATE",
+                    "action" : "DELETE",
                     "situation" : "CONFIRMED"
                 },
                 {
@@ -238,7 +238,7 @@
                     "situation" : "FOUND"
                 },
                 {
-                    "action" : "CREATE",
+                    "action" : "ASYNC",
                     "situation" : "ABSENT"
                 }
             ],
